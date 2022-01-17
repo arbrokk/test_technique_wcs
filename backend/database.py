@@ -2,6 +2,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
+# ce fichier gère la connection à la DB Sqlite
+
 SQLALCHEMY_DATABASE_URL = "sqlite:///./argonautes.db"
 
 engine = create_engine(

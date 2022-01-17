@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Request, Depends
 import models
 from sqlalchemy.orm import Session
 from database import SessionLocal, engine
@@ -7,11 +7,6 @@ from models import Argonaute
 
 app = FastAPI()
 models.Base.metadata.create_all(bind=engine)
-
-
-class ArgonautesRequest(BaseModel):
-    name: str
-
 
 def get_db():
     try:
@@ -27,17 +22,20 @@ async def root():
 
 
 @app.get("/get_argonautes_list")
-async def get_argonautes():
+async def get_argonautes(db: Session = Depends(get_db)):
     # query la DB pour la liste des argonautes et return le json
-
+    db.query(Argonaute).all()
     return {"message": "Hello World"}
 
 
-@app.get("/add_argonaute")
-async def add_argonaute(argonaute_request: ArgonautesRequest, db: Session = Depends(get_db)):
-    argonaute = Argonaute()
-    argonaute.name = argonaute_request
-    db.add(argonaute)
-    db.commit()
-    
-    return {"message": f"Created {argonaute}"}
+@app.get("/add_argonaute/{name}")
+async def add_argonaute(name: str, db: Session = Depends(get_db)):
+
+    if db.query(Argonaute.name).filter_by(name=name.lower()).first():
+        return {"message": f"{name.lower()} already exists"}
+    else:
+        argonaute = Argonaute()
+        argonaute.name = name.lower()
+        db.add(argonaute)
+        db.commit()
+        return {"message": f"Created {argonaute.name}"}

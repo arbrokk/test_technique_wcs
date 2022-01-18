@@ -1,12 +1,13 @@
 import logo from './logo.svg';
 import './App.css';
 import Header from './components/header';
+import Footer from "./components/footer";
 
 function App() {
   return (
-    <div className="App container mx-auto">
+    <div className="App mx-auto h-screen">
         <Header/>
-        <main className="mt-6">
+        <main className="mt-6 text-center ">
 
             <h2 className="text-bold text-2xl ">Ajouter un(e) Argonaute</h2>
 
@@ -33,9 +34,7 @@ function App() {
             </section>
         </main>
 
-      <footer className="">
-        <p>Réalisé par Jason en Anthestérion de l'an 515 avant JC</p>
-      </footer>
+    <Footer/>
     </div>
   );
 }

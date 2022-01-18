@@ -56,9 +56,9 @@ async def add_argonaute(name: str, db: Session = Depends(get_db)):
 @app.get("/delete_argonaute/{name}")
 async def delete_argonaute(name: str, db: Session = Depends(get_db)):
     # vérifie que le nom se trouve  en db si oui le supprime
-    queryD = db.query(Argonaute).filter_by(name=name.lower())
-    if queryD.first():
-        queryD.delete()
+    query = db.query(Argonaute).filter_by(name=name.lower())
+    if query.first():
+        query.delete()
         db.commit()
         return {"message": f"Deleted {name}"}
     else:

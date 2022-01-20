@@ -56,25 +56,29 @@ async def get_argonautes(db: Session = Depends(get_db)):
 
 
 @app.post("/argonaute/add")
-async def add_argonaute(name: str, db: Session = Depends(get_db)):
+async def add_argonaute(info: Request, db: Session = Depends(get_db)):
     # vérifie que le nom ne se trouve pas en db (prévention doublons), sinon l'ajoute en db
-    if db.query(Argonaute.name).filter_by(name=name.lower()).first():
-        return {"message": f"{name.lower()} already exists"}
+    req_info = await info.json()
+
+    if db.query(Argonaute.name).filter_by(name=req_info['name'].lower()).first():
+        return {"code": "error", "message": f"{req_info['name'].lower()} already exists"}
     else:
         argonaute = Argonaute()
-        argonaute.name = name.lower()
+        argonaute.name = req_info['name'].lower()
         db.add(argonaute)
         db.commit()
-        return {"message": f"Created {argonaute.name}"}
+        return {"code": "ok", "message": f"Created {argonaute.name}"}
 
 
 @app.post("/argonaute/del")
-async def delete_argonaute(name: str, db: Session = Depends(get_db)):
+async def delete_argonaute(info: Request, db: Session = Depends(get_db)):
     # vérifie que le nom se trouve  en db si oui le supprime
-    query = db.query(Argonaute).filter_by(name=name.lower())
+    req_info = await info.json()
+
+    query = db.query(Argonaute).filter_by(name=req_info['name'].lower())
     if query.first():
         query.delete()
         db.commit()
-        return {"message": f"Deleted {name}"}
+        return {"message": f"Deleted {req_info['name']}"}
     else:
-        return {"message": f"{name.lower()} doesn't exist"}
+        return {"message": f"{req_info['name'].lower()} doesn't exist"}

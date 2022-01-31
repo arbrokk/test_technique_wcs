@@ -28,11 +28,12 @@ const APIServ="http://127.0.0.1:8000"
                 }).then(response => response.json())
                  .then(data =>
                  {
-                     if(data['code']=="error"){
+                     if(data['code']==="error"){
                         alert("Cet argonaute déjà dans la liste");
                      }
+                     this.refreshData();
                  });
-            this.refreshData();
+
          } catch (err) {
              console.log(err);
          }

@@ -1,5 +1,5 @@
 import React from 'react';
-const APIServ="http://127.0.0.1:8000"
+const APIServ="https://wcs-test-api.herokuapp.com"
 
  class Argonautelist extends React.Component {
      constructor(props) {

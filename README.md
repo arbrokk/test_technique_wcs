@@ -23,9 +23,8 @@ Pour réaliser ce test technique, je me suis appuyé sur une stack à base de Fa
 
 ### Back-End
 
-Le backend est écrit en Python.
+Le backend est écrit en Python basé sur FastAPI.
 La DB est en SQLite via la lib SQLAlchemy.
-La communication avec le front se fait via FastAPI :
 - différents endpoints sont créés afin de mener à bien les interactions avec le front
 	- /get_argonautes_list/ : return la liste de argonautes embarqués
 	- /add_argonaute/{name} : ajoute l'argonaute *name* à la liste

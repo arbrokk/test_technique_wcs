@@ -1,5 +1,5 @@
 import React from 'react';
-const APIServ="http://127.0.0.1:8000"
+const APIServ="https://wcs-test-api.herokuapp.com"
 
  class Argonautelist extends React.Component {
      constructor(props) {
@@ -28,11 +28,11 @@ const APIServ="http://127.0.0.1:8000"
                 }).then(response => response.json())
                  .then(data =>
                  {
-                     if(data['code']=="error"){
+                     this.refreshData();
+                     if(data['code']==="error"){
                         alert("Cet argonaute déjà dans la liste");
                      }
                  });
-            this.refreshData();
          } catch (err) {
              console.log(err);
          }
@@ -44,8 +44,10 @@ const APIServ="http://127.0.0.1:8000"
                  method: "POST",
                  headers: {"Content-Type": "application/json"},
                  body: JSON.stringify({'name': singleItem}),
-             }).then()
-             this.refreshData();
+             }).then(
+                 this.refreshData()
+             )
+
          } catch (err) {
              console.log(err);
          }
@@ -55,7 +57,7 @@ const APIServ="http://127.0.0.1:8000"
          this.refreshData();
      }
 
-      refreshData() {
+     async refreshData() {
          fetch(
              APIServ+"/argonaute/list")
              .then((res) => res.json())

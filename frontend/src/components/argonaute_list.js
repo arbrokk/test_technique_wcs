@@ -44,9 +44,8 @@ class Argonautelist extends React.Component {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({'name': singleItem}),
-            }).then(
-                this.refreshData()
-            )
+            }).then(response => response.json())
+            .then(this.refreshData());
 
         } catch (err) {
             console.log(err);

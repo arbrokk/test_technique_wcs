@@ -65,6 +65,7 @@ class Argonautelist extends React.Component {
                     items: json,
                     DataisLoaded: true
                 });
+                console.log(json);
             })
     };
 
@@ -94,10 +95,10 @@ class Argonautelist extends React.Component {
                     </div>
                 </form>
 
-                <h2 className="font-title text-2xl py-4">Membres de l'équipage ({Object.entries(items).length})</h2>
+                <h2 className="font-title text-2xl py-4">Membres de l'équipage ({Object.entries(this.state.items).length})</h2>
                 <section className="grid grid-cols-3">
                     {
-                        Object.entries(items).map(([key, item]) => (
+                        Object.entries(this.state.items).map(([key, item]) => (
                             <ol key={key} className="capitalize py-2" onClick={() => this.removeArgonaute(item.name)}>
                                 { item.name }
                             </ol>

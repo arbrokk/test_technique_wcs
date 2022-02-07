@@ -98,9 +98,14 @@ class Argonautelist extends React.Component {
                 <h2 className="font-title text-2xl py-4">Membres de l'équipage ({Object.entries(this.state.items).length})</h2>
                 <section className="grid grid-cols-3">
                     {
-                        Object.entries(this.state.items).map(([key, item]) => (
-                            <ol key={key} className="capitalize py-2" onClick={() => this.removeArgonaute(item.name)}>
+                        Object.entries(items).map(([key, item]) => (
+                            <ol key={key} className="capitalize py-2 flex mx-auto" onClick={() => this.removeArgonaute(item.name)}>
                                 { item.name }
+                                <span className="self-center" onClick={() => this.removeArgonaute(item.name)}>
+                                <svg className="h-5 w-5 text-red-400 ml-2"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                </span>
                             </ol>
                         ))
                     }</section>
